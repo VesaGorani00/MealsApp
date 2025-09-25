@@ -4,9 +4,10 @@ import 'package:meals/models/category.dart';
 import '../models/meal.dart';
 
 class MealsDetailsScreen extends StatelessWidget {
-  const MealsDetailsScreen({super.key, required this.meal});
+  const MealsDetailsScreen({super.key, required this.meal, required this.onToggleFavorite});
 
   final Meal meal;
+  final void Function(Meal meal) onToggleFavorite;
 
   void _selectCategoryDetails(BuildContext context, Category category) {
     final filteredMeals = dummyMeals
@@ -20,7 +21,9 @@ class MealsDetailsScreen extends StatelessWidget {
       appBar: AppBar(
           title: Text(meal.title),
             actions: [
-              IconButton(onPressed: () {}, icon: Icon(Icons.star),
+              IconButton(onPressed: () {
+                onToggleFavorite(meal);
+              }, icon: Icon(Icons.star),
 
               )
             ],),
