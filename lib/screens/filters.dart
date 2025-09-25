@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:meals/screens/tabs.dart';
 import 'package:meals/widgets/main_drawer.dart';
 
+enum Filter { glutenFree, lactoseFree, vegetarian, vegan }
+
 class FiltersScreen extends StatefulWidget {
   const FiltersScreen({super.key});
 
@@ -18,7 +20,6 @@ class FiltersScreenState extends State<FiltersScreen> {
   var vegetarianFilterSet = false;
   var veganFilterSet = false;
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,69 +34,84 @@ class FiltersScreenState extends State<FiltersScreen> {
       //     }
       //   },
       // ),
-      body: Column(
-        children: [
-          SwitchListTile(
-            value: glutenFreeFilterSet,
-            onChanged: (isChecked) {
-              setState(() {
-                glutenFreeFilterSet = isChecked;
-              });
-            },
-            title: Text('Gluten-Free', style: TextStyle(color: Colors.white)),
-            subtitle: Text(
-              'Only include gluten-free meals',
-              style: TextStyle(color: Colors.white),
+      body: PopScope(
+        canPop: false,
+        onPopInvokedWithResult: (bool didPop, dynamic result) {
+          if (didPop) return;
+          Navigator.of(context).pop({
+            Filter.glutenFree: glutenFreeFilterSet,
+            Filter.lactoseFree: lactoseFreeFilterSet,
+            Filter.vegetarian: vegetarianFilterSet,
+            Filter.vegan: veganFilterSet,
+          });
+        },
+        child: Column(
+          children: [
+            SwitchListTile(
+              value: glutenFreeFilterSet,
+              onChanged: (isChecked) {
+                setState(() {
+                  glutenFreeFilterSet = isChecked;
+                });
+              },
+              title: Text('Gluten-Free', style: TextStyle(color: Colors.white)),
+              subtitle: Text(
+                'Only include gluten-free meals',
+                style: TextStyle(color: Colors.white),
+              ),
+              activeColor: Theme.of(context).colorScheme.tertiary,
+              contentPadding: EdgeInsets.only(left: 34, right: 22),
             ),
-            activeColor: Theme.of(context).colorScheme.tertiary,
-            contentPadding: EdgeInsets.only(left: 34, right: 22),
-          ),
-          SwitchListTile(
-            value: lactoseFreeFilterSet,
-            onChanged: (isChecked) {
-              setState(() {
-                lactoseFreeFilterSet = isChecked;
-              });
-            },
-            title: Text('Lactose-Free', style: TextStyle(color: Colors.white)),
-            subtitle: Text(
-              'Only include lactose-free meals',
-              style: TextStyle(color: Colors.white),
+            SwitchListTile(
+              value: lactoseFreeFilterSet,
+              onChanged: (isChecked) {
+                setState(() {
+                  lactoseFreeFilterSet = isChecked;
+                });
+              },
+              title: Text(
+                'Lactose-Free',
+                style: TextStyle(color: Colors.white),
+              ),
+              subtitle: Text(
+                'Only include lactose-free meals',
+                style: TextStyle(color: Colors.white),
+              ),
+              activeColor: Theme.of(context).colorScheme.tertiary,
+              contentPadding: EdgeInsets.only(left: 34, right: 22),
             ),
-            activeColor: Theme.of(context).colorScheme.tertiary,
-            contentPadding: EdgeInsets.only(left: 34, right: 22),
-          ),
-          SwitchListTile(
-            value: vegetarianFilterSet,
-            onChanged: (isChecked) {
-              setState(() {
-                vegetarianFilterSet = isChecked;
-              });
-            },
-            title: Text('Vegetarian', style: TextStyle(color: Colors.white)),
-            subtitle: Text(
-              'Only include vegetarian meals',
-              style: TextStyle(color: Colors.white),
+            SwitchListTile(
+              value: vegetarianFilterSet,
+              onChanged: (isChecked) {
+                setState(() {
+                  vegetarianFilterSet = isChecked;
+                });
+              },
+              title: Text('Vegetarian', style: TextStyle(color: Colors.white)),
+              subtitle: Text(
+                'Only include vegetarian meals',
+                style: TextStyle(color: Colors.white),
+              ),
+              activeColor: Theme.of(context).colorScheme.tertiary,
+              contentPadding: EdgeInsets.only(left: 34, right: 22),
             ),
-            activeColor: Theme.of(context).colorScheme.tertiary,
-            contentPadding: EdgeInsets.only(left: 34, right: 22),
-          ),
-          SwitchListTile(
-            value: veganFilterSet,
-            onChanged: (isChecked) {
-              setState(() {
-                veganFilterSet = isChecked;
-              });
-            },
-            title: Text('Vegan', style: TextStyle(color: Colors.white)),
-            subtitle: Text(
-              'Only include vegan meals',
-              style: TextStyle(color: Colors.white),
+            SwitchListTile(
+              value: veganFilterSet,
+              onChanged: (isChecked) {
+                setState(() {
+                  veganFilterSet = isChecked;
+                });
+              },
+              title: Text('Vegan', style: TextStyle(color: Colors.white)),
+              subtitle: Text(
+                'Only include vegan meals',
+                style: TextStyle(color: Colors.white),
+              ),
+              activeColor: Theme.of(context).colorScheme.tertiary,
+              contentPadding: EdgeInsets.only(left: 34, right: 22),
             ),
-            activeColor: Theme.of(context).colorScheme.tertiary,
-            contentPadding: EdgeInsets.only(left: 34, right: 22),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
