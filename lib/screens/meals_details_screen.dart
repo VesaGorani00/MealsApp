@@ -4,10 +4,9 @@ import 'package:meals/models/category.dart';
 import '../models/meal.dart';
 
 class MealsDetailsScreen extends StatelessWidget {
-  const MealsDetailsScreen({super.key, required this.meal, required this.onToggleFavorite});
+  const MealsDetailsScreen({super.key, required this.meal,});
 
   final Meal meal;
-  final void Function(Meal meal) onToggleFavorite;
 
   void _selectCategoryDetails(BuildContext context, Category category) {
     final filteredMeals = dummyMeals

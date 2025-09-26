@@ -9,9 +9,8 @@ import '../models/meal.dart';
 
 
 class CategoriesScreen extends StatelessWidget {
-  const CategoriesScreen({super.key, required this.onToggleFavorite, required this.availableMeals});
+  const CategoriesScreen({super.key, required this.availableMeals});
 
-  final void Function(Meal meal) onToggleFavorite;
   final List<Meal> availableMeals;
 
 //loading different screen
@@ -25,7 +24,6 @@ class CategoriesScreen extends StatelessWidget {
             MealsScreen(
               title: category.title,
               meals: filteredMeals,
-              onToggleFavorite: onToggleFavorite,
             ),
       ),
     );
